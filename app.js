@@ -1,8 +1,10 @@
 //Variables
 //Lista de amigos
 let listaAmigos = [];
-//Agregar elemento a la lista HTML
+//Elemento <li> a HTML 
 let nuevoAmigo = document.getElementById('listaAmigos');
+//nombre del amigo secreto
+let nombreDeAmigoSecreto = "";
 
 //Funcion para afregar amigo a la lista
 function agregarAmigo() {
@@ -19,18 +21,12 @@ function agregarAmigo() {
         actualizarListaAmigos();
         //console.log(listaAmigos);
     } else {
-        alert("Por favor, inserte un nombre");
+        alert("Por favor, ingrese un nombre");
     }
     return;
 }
 
-//Funcion para limpiar la caja
-function limpiarCaja() {
-    document.querySelector('#nombreAmigo').value = '';
-    return;
-}
-
-//funcion que actualizar las lista de amigos en HTML
+//Actualizar las lista de amigos en HTML
 function actualizarListaAmigos() {
     limpiarListaHtml();
 
@@ -42,30 +38,60 @@ function actualizarListaAmigos() {
     return;
 }
 
+//Funcion para limpiar la caja
+function limpiarCaja() {
+    document.querySelector('#nombreAmigo').value = '';
+    return;
+}
+
 //Limpiar la lista HTML
 function limpiarListaHtml() {
     nuevoAmigo.innerHTML = '';
     return;
 }
 
-//Funcion para conocer a el amigo secreto
 function sortearAmigo() {
     //Verificar que se encuenrten dos o mas elementos para sortear
     if (listaAmigos.length > 1) {
+        //Sorteo aleatonio de amigos
         let nombreElegido = listaAmigos[Math.floor(Math.random()*(listaAmigos.length))];
+
         limpiarListaHtml();
-        let nombreDeAmigoSecreto = document.querySelector("#resultado");
+
+        nombreDeAmigoSecreto = document.querySelector("#resultado");
         nombreDeAmigoSecreto.innerHTML = `Tu amigo secreto es: ${nombreElegido}`;
-        //Desabilitar botones e input para no agregar mas amigos y no volver a sortear
+        
         desabilitarBoton("#botonAgregar");
         desabilitarBoton("#botonSortear");
         desabilitarBoton("#nombreAmigo");
+        habilitarBoton("botonNuevoSorteo");
+
         limpiarCaja();
         //console.log(numeroGenerado);
         return;
     }
 }
 
+//Desabilitar botones
 function desabilitarBoton(identificador) {
     document.querySelector(identificador).setAttribute('disabled','true');
+    return;
 }
+//Habilitar botones
+function habilitarBoton(element) {
+    document.getElementById(element).removeAttribute('disabled');
+    return;
+}
+
+function condicionesIniciales(params) {
+    listaAmigos = [];
+    nombreDeAmigoSecreto.innerHTML = "";
+
+    habilitarBoton("botonAgregar");
+    habilitarBoton("botonSortear");
+    habilitarBoton("nombreAmigo");
+    desabilitarBoton("#botonNuevoSorteo");
+    return;
+}
+
+condicionesIniciales();
