@@ -18,3 +18,4 @@ Proyecto terminado en funcionalidad.
 
 ### Autor
 #### RodrigoDsm15
+#### Aluralatam
